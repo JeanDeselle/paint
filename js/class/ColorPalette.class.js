@@ -52,17 +52,17 @@ class ColorPalette {
 
 	// getter pour récuperer la .pickedColor
 	getPickedColor() {
-        return (`rgb(${this.rgb.red},${this.rgb.green}, ${this.rgb.blue})`)
-    }
-    
+		return `rgb(${this.rgb.red},${this.rgb.green}, ${this.rgb.blue})`;
+	}
+
 	// méthode de gestion de click sur la palette
 	onClick(e) {
-        let x = e.offsetX;
+		let x = e.offsetX;
 		let y = e.offsetY;
-        let pixel = this.ctx.getImageData(x, y, 1, 1).data; // Read pixel Color
-        this.rgb.red = pixel[0];
-        this.rgb.green = pixel[1];
-        this.rgb.blue = pixel[2];
+		let pixel = this.ctx.getImageData(x, y, 1, 1).data; // Read pixel Color
+		this.rgb.red = pixel[0];
+		this.rgb.green = pixel[1];
+		this.rgb.blue = pixel[2];
 	}
 }
 

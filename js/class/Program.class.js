@@ -11,6 +11,7 @@ class Program {
 		// - Slate
 		this.slate = new Slate(this.pen.configure());
 		this.start();
+		// ------------------------------------------------
 	}
 
 	// méthodes:
@@ -27,7 +28,15 @@ class Program {
 		this.slate.updatePen();
 	}
 
-	onPickColor() {}
+	onPickColor(rgbColor) {
+		const event = new CustomEvent("onPickColor", {
+			detail: {
+				rgb: rgbColor,
+			},
+		});
+
+		document.getElementById("color-palette").dispatchEvent(event);
+	}
 
 	start() {
 		// installer des écouteurs sur les outils et de configuration
@@ -59,18 +68,27 @@ class Program {
 					.getElementById("color-palette")
 					.classList.toggle("hide");
 			});
-		// pipette
+
+		//--------------------------------------------------------------------------------------------
+		// y'aura un gestionnaire d'evenement custom à créer (à ne pas faire tout de suite FFS !)
+
 		document
 			.getElementById("color-palette")
 			.addEventListener("click", (e) => {
-				this.pen.setColor(this.colorPalette.getPickedColor());
+				this.onPickColor(this.colorPalette.getPickedColor());
+			});
+
+		document
+			.getElementById("color-palette")
+			.addEventListener("onPickColor", (e) => {
+				this.pen.setColor(e.detail.rgb);
+				
 				this.slate.pen = this.pen.configure();
 				this.slate.updatePen();
 				document
 					.getElementById("color-palette")
 					.classList.toggle("hide");
 			});
-		// y'aura un gestionnaire d'evenement custom à créer (à ne pas faire tout de suite FFS !)
 	}
 }
 
