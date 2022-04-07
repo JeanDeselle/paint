@@ -3,6 +3,7 @@
 // - et la méthode d'éxecution de l'appli'
 import Program from './class/Program.class.js';
 
+
 window.addEventListener("DOMContentLoaded", (e) => {
     const prog = new Program
 });

@@ -10,6 +10,7 @@ class Program {
 		this.pen = new Pen();
 		// - Slate
 		this.slate = new Slate(this.pen.configure());
+		
 		this.start();
 		// ------------------------------------------------
 	}
@@ -18,6 +19,7 @@ class Program {
 
 	onClickPenColor(color) {
 		this.pen.setColor(color);
+		
 		this.slate.pen = this.pen.configure();
 		this.slate.updatePen();
 	}
@@ -29,13 +31,7 @@ class Program {
 	}
 
 	onPickColor(rgbColor) {
-		const event = new CustomEvent("onPickColor", {
-			detail: {
-				rgb: rgbColor,
-			},
-		});
-
-		document.getElementById("color-palette").dispatchEvent(event);
+		
 	}
 
 	start() {
@@ -72,17 +68,17 @@ class Program {
 		//--------------------------------------------------------------------------------------------
 		// y'aura un gestionnaire d'evenement custom à créer (à ne pas faire tout de suite FFS !)
 
-		document
-			.getElementById("color-palette")
-			.addEventListener("click", (e) => {
-				this.onPickColor(this.colorPalette.getPickedColor());
-			});
+		// document
+		// 	.getElementById("color-palette")
+		// 	.addEventListener("click", (e) => {
+		// 		this.onPickColor(this.colorPalette.getPickedColor());
+		// 	});
 
 		document
 			.getElementById("color-palette")
 			.addEventListener("onPickColor", (e) => {
-				this.pen.setColor(e.detail.rgb);
-				
+				console.log(e.detail.rgb);
+				this.pen.setRgbColor(e.detail.rgb);
 				this.slate.pen = this.pen.configure();
 				this.slate.updatePen();
 				document

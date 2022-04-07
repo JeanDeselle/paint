@@ -3,16 +3,24 @@ class ColorPalette {
 		// récupérer le canvas/context
 		this.canvas = document.getElementById("color-palette");
 		this.ctx = this.canvas.getContext("2d");
-
 		// initialiser une proriété rgb (objet ??)
 		this.rgb = {
 			red: 0,
 			green: 0,
 			blue: 0,
 		};
+		this.onPickColor = new CustomEvent("onPickColor", {
+			detail: {
+				// rgb: this.getPickedColor(),
+				rgb: this.rgb,
+			},
+		});
 		// installer l'écouteur sur la ColorPalette
 		this.canvas.addEventListener("click", (e) => {
 			this.onClick(e);
+			document
+				.getElementById("color-palette")
+				.dispatchEvent(this.onPickColor);
 		});
 
 		// appeler la methode pour Build() la palette
@@ -45,7 +53,6 @@ class ColorPalette {
 		gradient.addColorStop(0.5, "rgba(0,     0,   0, 0)");
 		gradient.addColorStop(1, "rgba(0,     0,   0, 1)");
 
-		// Apply gradient to canvas
 		this.ctx.fillStyle = gradient;
 		this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 	}
@@ -63,6 +70,7 @@ class ColorPalette {
 		this.rgb.red = pixel[0];
 		this.rgb.green = pixel[1];
 		this.rgb.blue = pixel[2];
+		console.log(this.rgb);
 	}
 }
 

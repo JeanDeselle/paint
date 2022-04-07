@@ -23,8 +23,10 @@ class Pen {
 		this.size = size;
 	}
 
-	setRgbColor(rgbColor) {}
-	// methode pour appliquer une couleur rgb au crayon
+	setRgbColor(rgbColor) {
+		this.color = `rgb(${rgbColor.red},${rgbColor.green}, ${rgbColor.blue})`;;
+		console.log(this.color);
+	}
 }
 
 export default Pen;
